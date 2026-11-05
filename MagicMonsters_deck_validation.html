@@ -1,447 +1,139 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#071a3b">
-<title>وحوش السحر</title>
-<style>
-:root{--blue:#75caff;--line:#5289bb}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Tahoma,Arial,sans-serif;background:#040d20;color:#f3f8ff}
-body{height:100dvh;min-height:0;padding:0;background:radial-gradient(ellipse at 50% 25%,#123e78,#06132d 72%)}
-button{font:inherit;touch-action:manipulation}
-.app{position:relative;width:100%;max-width:480px;height:100%;height:100dvh;max-height:950px;margin:0 auto;overflow:hidden;
-border-left:1px solid #3979b8;border-right:1px solid #3979b8;
-background:radial-gradient(ellipse at 50% 18%,#123d70 0%,#0a2448 52%,#06152e 100%);
-display:flex;flex-direction:column}
-header{flex:0 0 auto;height:54px;padding:7px 12px;text-align:center;border-bottom:1px solid #76bfff35;background:#0b2850;display:flex;flex-direction:column;justify-content:center}
-.brand-small{font-size:9px;color:#a6d9ff;letter-spacing:2px}
-header h1{font-size:20px;margin:1px 0 0;text-shadow:0 0 10px #59baff}
-.screen{display:none;flex:1;min-height:0;overflow:hidden}
-.screen.active{display:flex}
-.home{flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:22px 24px 20px}
-.home-brand{display:flex;flex-direction:column;align-items:center;margin:5vh 0 0}
-.dragon{font-size:clamp(62px,18vw,82px);filter:drop-shadow(0 0 17px #65c8ff);margin-bottom:8px}
-.home h2{font-size:clamp(34px,9vw,42px);margin:0;text-shadow:0 0 8px #59baff,0 0 18px #59baff88;animation:titleGlow 3s ease-in-out infinite alternate}
-.eng{direction:ltr;letter-spacing:5px;color:#a4d5ff;font-size:10px;margin-top:7px}
-.menu-buttons{width:100%;display:grid;gap:14px;margin:auto 0}
-.primary,.secondary,.back,.inspect,.select,.close{border:1px solid #83caff88;color:#fff;border-radius:11px;background:linear-gradient(110deg,#16477f,#1769ad,#164477);font-weight:700}
-.primary,.secondary{width:100%;height:64px;min-height:64px;font-size:18px}
-.secondary{background:linear-gradient(110deg,#102d55,#174477)}
-.collection-menu-wrap{position:relative;width:100%;height:64px}
-.collection-alert{position:absolute;top:50%;right:12px;transform:translateY(-50%);width:22px;height:22px;border-radius:50%;background:#e32636;color:#fff;border:2px solid #f3f8ff;font-size:14px;font-weight:900;line-height:18px;text-align:center;box-shadow:0 0 8px #e3263680;pointer-events:none}
-.collection-alert[hidden]{display:none}
-.version{font-size:10px;color:#82a8d1;margin-top:0}
-.collection{flex-direction:column;padding:8px 9px 9px;gap:7px}
-.settings{flex-direction:column;padding:12px;gap:14px}.settings-panel{display:flex;flex-direction:column;gap:10px;margin-top:10px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 12px;border:1px solid #67baff55;background:#0c2a50;border-radius:11px}.setting-row>div:first-child{display:flex;flex-direction:column;gap:5px}.setting-row strong{font-size:15px}.setting-row small{font-size:10px;color:#a9c9e8}.setting-control{border:1px solid #83caff88;border-radius:9px;background:linear-gradient(110deg,#16477f,#1769ad);color:white;font:inherit;font-size:12px;font-weight:bold;padding:10px 12px;min-height:40px}.setting-control.active{border-color:#a4e4ff;background:linear-gradient(110deg,#236da4,#248bc2);box-shadow:0 0 8px #59baff55}.language-buttons{display:flex;gap:6px}
-.collection-top{height:34px;flex:0 0 34px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.collection-top h2{font-size:16px;margin:0}
-.back{padding:5px 12px;font-size:12px;min-height:30px}
-.counter{height:43px;flex:0 0 43px;border:1px solid #67baff55;background:#0c2a50;border-radius:9px;padding:5px 9px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#c7e5ff}
-.counter strong{font-size:16px;color:#fff}
-.progress{height:4px;width:110px;background:#ffffff1c;border-radius:9px;margin-top:4px;overflow:hidden}
-.progress span{display:block;height:100%;width:0;background:#80d4ff;transition:width .2s}
-.collection-tools{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:7px}.hint{flex:1;min-width:0;font-size:9px;color:#9dbbd9;margin:0;line-height:1.3;text-align:center}.selected-view-btn{flex:0 0 auto;min-height:30px;padding:5px 8px;font-size:10px}.chosen-modal{width:min(100%,390px);max-height:85%;display:flex;flex-direction:column}.chosen-modal h3{flex:0 0 auto}.chosen-cards{min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(142px,auto);gap:7px;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}.chosen-empty{grid-column:1/-1;text-align:center;color:#b9d7f3;font-size:12px;padding:24px 8px}
-.cards{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(142px,auto);gap:7px;overflow-y:auto;overflow-x:hidden;padding:2px 2px 8px;align-content:start;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
-.card{min-width:0;min-height:0;border:1px solid #5685b5;border-radius:9px;padding:5px 3px;background:linear-gradient(155deg,#153d6c,#0a2040);display:flex;flex-direction:column;justify-content:space-between;gap:3px;position:relative;overflow:hidden}
-.card.chosen{border:2px solid #8cddff;background:linear-gradient(155deg,#205a8b,#102c50);box-shadow:0 0 9px #50bfff55}
-.card-head{display:flex;align-items:center;justify-content:center;min-width:0}
-.card-name{font-size:clamp(9px,2.7vw,11px);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card-number{display:none}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-.stat{background:#06172f99;border:1px solid #7ab8e52b;border-radius:5px;padding:3px 1px;text-align:center;min-width:0}
-.stat small{display:block;color:#a7c9e8;font-size:8px;margin-bottom:1px}
-.stat b{font-size:11px;color:#fff}
-.card-actions{display:grid;grid-template-columns:1fr 1fr;gap:3px}
-.card-actions button{min-width:0;min-height:25px;padding:2px 0;font-size:10px;border-radius:6px}
-.inspect{background:#102b4e;border-color:#5e91c4}
-.select{background:linear-gradient(110deg,#15558a,#1977b8)}
-.select:disabled{opacity:.45}
-.selected-label{position:absolute;top:2px;right:3px;background:#75d4ff;color:#06203e;font-size:7px;font-weight:bold;padding:2px 3px;border-radius:4px}
-.notice{height:13px;flex:0 0 13px;color:#ffd98c;font-size:9px;text-align:center;line-height:13px;white-space:nowrap}
-.loading-screen{position:absolute;inset:0;z-index:20;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at center,#164d89,#06142f 75%);text-align:center;padding:24px}
-.loading-screen.show{display:flex}
-.spinner{width:40px;height:40px;border:3px solid #ffffff35;border-top-color:#9be0ff;border-radius:50%;animation:spin .8s linear infinite}
-.loading-screen h2{font-size:21px;margin:20px 0 8px}
-.loading-screen p{font-size:12px;color:#b1d9fa;margin:0}
-.modal-wrap{position:absolute;inset:0;background:#020916e8;display:none;align-items:center;justify-content:center;padding:18px;z-index:30}
-.modal-wrap.open{display:flex}
-.modal{width:min(100%,340px);border:1px solid #72bfff;border-radius:16px;padding:16px;background:linear-gradient(150deg,#174779,#071a35);box-shadow:0 0 30px #238bdb55}
-.modal h3{margin:0 0 12px;font-size:20px}
-.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}
-.modal-stats div{padding:9px;background:#06172f;border-radius:8px;text-align:center;font-size:12px}
-.effect-title{color:#9bd8ff;font-size:12px;font-weight:bold;margin-bottom:5px}
-.effect-box{background:#06172f;border:1px solid #6da9d833;border-radius:9px;padding:10px;font-size:12px;line-height:1.7;color:#d9eaff;min-height:48px}
-.close{width:100%;margin-top:12px;min-height:40px}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes titleGlow{0%{text-shadow:0 0 5px #59baff66,0 0 10px #59baff33}100%{text-shadow:0 0 12px #8bdcff,0 0 25px #59baffaa,0 0 38px #238bdb66}}
-@media(max-height:620px){header{height:45px}.collection{padding:5px;gap:4px}.collection-top{height:29px;flex-basis:29px}.counter{height:37px;flex-basis:37px}.cards{gap:4px;grid-auto-rows:minmax(125px,auto)}.card{padding:3px 2px}.card-actions button{min-height:21px}.hint{font-size:8px}.notice{height:10px;flex-basis:10px;line-height:10px}}
-@media(max-width:350px){.collection{padding:6px 5px}.cards{gap:4px}.card-name{font-size:9px}.stat small{font-size:7px}.stat b{font-size:10px}.card-actions button{font-size:9px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition:none!important}}
-
-.deck-warning{position:absolute;top:68px;left:12px;right:12px;z-index:40;
-  display:none;padding:13px 14px;border:1px solid #ffd27a;border-radius:11px;
-  background:linear-gradient(135deg,#684018,#3b260f);color:#fff2d5;
-  box-shadow:0 8px 24px #0008;text-align:center;font-size:13px;font-weight:700;
-  line-height:1.6}
-.deck-warning.show{display:block;animation:warningIn .2s ease-out}
-@keyframes warningIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#071a3b">
+  <title>وحوش السحر</title>
+  <style>
+    :root{color-scheme:dark;--blue:#75caff;--line:#5289bb}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:Tahoma,Arial,sans-serif;background:#040d20;color:#f3f8ff}
+    body{min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 50% 20%,#123e78,#06132d 72%)}
+    button{font:inherit;touch-action:manipulation;cursor:pointer}
+    button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+    .app{position:relative;width:100%;max-width:480px;min-height:100vh;min-height:100dvh;margin:0 auto;overflow:hidden;border-inline:1px solid #3979b8;background:radial-gradient(ellipse at 50% 18%,#123d70,#0a2448 52%,#06152e)}
+    .screen{display:none;min-height:100vh;min-height:100dvh;padding:18px 14px;flex-direction:column}
+    .screen.active{display:flex}
+    .home{align-items:center;text-align:center;padding:34px 24px 20px}
+    .home-brand{margin:8vh 0 0}
+    h1{font-size:clamp(34px,9vw,44px);margin:0;text-shadow:0 0 12px #59baff}
+    .eng{direction:ltr;letter-spacing:5px;color:#a4d5ff;font-size:10px;margin-top:8px}
+    .divider{width:75%;height:1px;background:linear-gradient(90deg,transparent,#83caff,transparent);margin:23px auto}
+    .menu-buttons{width:100%;display:grid;gap:14px;margin:auto 0}
+    .primary,.secondary,.back,.inspect,.select,.close,.setting-control{border:1px solid #83caff88;color:#fff;border-radius:11px;background:linear-gradient(110deg,#16477f,#1769ad,#164477);font-weight:700}
+    .primary,.secondary{width:100%;min-height:58px;font-size:18px}
+    .secondary{background:linear-gradient(110deg,#102d55,#174477)}
+    .version{font-size:10px;color:#82a8d1}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:40px;margin-bottom:12px}
+    .top h2{font-size:18px;margin:0}
+    .back{padding:7px 14px;font-size:13px}
+    .settings-panel{display:flex;flex-direction:column;gap:12px;margin-top:10px}
+    .setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 12px;border:1px solid #67baff55;background:#0c2a50;border-radius:11px}
+    .setting-row>div:first-child{display:flex;flex-direction:column;gap:5px}
+    .setting-row strong{font-size:15px}.setting-row small{font-size:10px;color:#a9c9e8}
+    .setting-control{padding:9px 11px;min-height:40px;font-size:12px;white-space:nowrap}
+    .setting-control.active{background:#236da4;box-shadow:0 0 8px #59baff55}
+    .language-buttons{display:flex;gap:6px}
+    .counter{border:1px solid #67baff55;background:#0c2a50;border-radius:9px;padding:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:#c7e5ff}
+    .counter strong{font-size:16px;color:#fff;white-space:nowrap}
+    .progress{height:4px;width:110px;background:#ffffff1c;border-radius:9px;margin-top:5px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:#80d4ff;transition:width .2s}
+    .collection-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:9px 0}
+    .hint{flex:1;min-width:0;font-size:10px;color:#9dbbd9;margin:0;line-height:1.45}
+    .selected-view{flex:0 0 auto;padding:7px 9px;font-size:11px}
+    .cards{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(132px,auto);gap:7px;overflow:auto;padding:2px 2px 8px;align-content:start}
+    .card{min-width:0;border:1px solid #5685b5;border-radius:9px;padding:6px 4px;background:linear-gradient(155deg,#153d6c,#0a2040);display:flex;flex-direction:column;justify-content:space-between;gap:6px;position:relative}
+    .card.chosen{border:2px solid #8cddff;background:linear-gradient(155deg,#205a8b,#102c50);box-shadow:0 0 9px #50bfff55}
+    .card-head{text-align:center}.card-name{font-size:clamp(9px,2.7vw,12px);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:3px}.stat{background:#06172f99;border:1px solid #7ab8e52b;border-radius:5px;padding:4px 1px;text-align:center}.stat small{display:block;color:#a7c9e8;font-size:8px}.stat b{font-size:11px}
+    .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:4px}.card-actions button{min-width:0;min-height:28px;padding:3px 1px;font-size:10px;border-radius:6px}.inspect{background:#102b4e;border-color:#5e91c4}.select{background:linear-gradient(110deg,#15558a,#1977b8)}
+    .selected-label{position:absolute;top:3px;inset-inline-end:3px;background:#75d4ff;color:#06203e;font-size:8px;font-weight:bold;padding:2px 4px;border-radius:4px}
+    .notice{min-height:18px;color:#ffd98c;font-size:10px;text-align:center;line-height:18px}
+    .modal-wrap{position:fixed;inset:0;background:#020916e8;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal-wrap.open{display:flex}
+    .modal{width:min(100%,360px);max-height:85vh;overflow:auto;border:1px solid #72bfff;border-radius:16px;padding:16px;background:linear-gradient(150deg,#174779,#071a35);box-shadow:0 0 30px #238bdb55}
+    .modal h3{margin:0 0 12px;font-size:20px}.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}.modal-stats div{padding:9px;background:#06172f;border-radius:8px;text-align:center;font-size:12px}
+    .effect-title{color:#9bd8ff;font-size:12px;font-weight:bold;margin:10px 0 5px}.effect-box{background:#06172f;border:1px solid #6da9d833;border-radius:9px;padding:10px;font-size:12px;line-height:1.7;color:#d9eaff;min-height:48px}
+    .close{width:100%;margin-top:12px;min-height:40px}.chosen-modal{width:min(100%,390px)}.chosen-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:60vh;overflow:auto}.chosen-card{padding:9px;background:#0c2a50;border:1px solid #5685b5;border-radius:8px;font-size:12px;display:flex;justify-content:space-between;gap:8px}.remove-card{border:0;background:transparent;color:#ffb0b0;font-weight:bold}
+    .warning{position:fixed;top:12px;inset-inline:12px;z-index:8;display:none;padding:12px;border:1px solid #ffd27a;border-radius:11px;background:#50330f;color:#fff2d5;text-align:center;font-size:13px;line-height:1.5}.warning.show{display:block}
+    @media(max-width:350px){.screen{padding:12px 9px}.cards{gap:4px;grid-auto-rows:minmax(122px,auto)}.card-actions button{font-size:9px}.setting-control{padding-inline:7px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
 </head>
 <body>
 <main class="app">
-<div class="deck-warning" id="deckWarning" role="alert" aria-live="assertive"></div>
-
-<section class="screen home active" id="home">
-  <div class="home-brand">
-    
-    <h2 id="homeTitle">وحوش السحر</h2><div class="eng">MAGIC MONSTERS</div>
-    <div style="width:75%;height:1px;background:linear-gradient(90deg,transparent,#83caff,transparent);margin:23px auto"></div>
-  </div>
-  <div class="menu-buttons">
-    <button class="primary" id="matchBtn">بدء مباراة</button>
-    <div class="collection-menu-wrap"><button class="secondary" id="collectionBtn">المجموعة</button><span class="collection-alert" id="collectionAlert" aria-label="المجموعة غير مكتملة">!</span></div>
-    <button class="secondary" id="settingsBtn">الإعدادات</button>
-  </div>
-  <div class="version">VERSION 0.3.0</div>
-</section>
-
-
-<section class="screen settings" id="settings">
-  <div class="collection-top">
-    <h2 id="settingsHeading">الإعدادات</h2>
-    <button class="back" id="settingsBackBtn" type="button">رجوع</button>
-  </div>
-  <div class="settings-panel">
-    <div class="setting-row">
-      <div><strong id="soundHeading">الصوت</strong><small id="soundDescription">تشغيل أو كتم أصوات الواجهة</small></div>
-      <button class="setting-control" id="soundToggle" type="button" aria-pressed="false">الصوت: يعمل</button>
+  <div class="warning" id="deckWarning" role="alert" aria-live="assertive"></div>
+  <section class="screen home active" id="home">
+    <div class="home-brand"><h1 id="homeTitle">وحوش السحر</h1><div class="eng">MAGIC MONSTERS</div><div class="divider"></div></div>
+    <div class="menu-buttons">
+      <button class="primary" id="matchBtn" type="button">بدء مباراة</button>
+      <button class="secondary" id="collectionBtn" type="button">المجموعة</button>
+      <button class="secondary" id="settingsBtn" type="button">الإعدادات</button>
     </div>
-    <div class="setting-row">
-      <div><strong id="languageHeading">اللغة</strong><small id="languageDescription">اختر لغة اللعبة</small></div>
-      <div class="language-buttons">
-        <button class="setting-control active" id="arabicBtn" type="button">العربية</button>
-        <button class="setting-control" id="englishBtn" type="button">English</button>
-      </div>
+    <div class="version" id="version">الإصدار 0.3.0</div>
+  </section>
+  <section class="screen" id="settings">
+    <div class="top"><h2 id="settingsHeading">الإعدادات</h2><button class="back" id="settingsBackBtn" type="button">رجوع</button></div>
+    <div class="settings-panel">
+      <div class="setting-row"><div><strong id="soundHeading">الصوت</strong><small id="soundDescription">تشغيل أو كتم أصوات الواجهة</small></div><button class="setting-control" id="soundToggle" type="button" aria-pressed="false">الصوت: يعمل</button></div>
+      <div class="setting-row"><div><strong id="languageHeading">اللغة</strong><small id="languageDescription">اختر لغة اللعبة</small></div><div class="language-buttons"><button class="setting-control active" id="arabicBtn" type="button" aria-pressed="true">العربية</button><button class="setting-control" id="englishBtn" type="button" aria-pressed="false">English</button></div></div>
     </div>
-  </div>
-</section>
-
-<section class="screen collection" id="collection">
-  <div class="collection-top">
-    <h2 id="collectionHeading">مجموعة البطاقات</h2>
-    <button class="back" id="backBtn">رجوع</button>
-  </div>
-  <div class="counter">
-    <div><span id="chosenCountLabel">البطاقات المختارة</span> <strong id="count">0 / 20</strong></div>
-    <div><div style="font-size:9px;color:#9fc9ed"><span id="completionLabel">اكتمال المجموعة</span></div><div class="progress"><span id="progressFill"></span></div></div>
-  </div>
-  <div class="collection-tools"><p class="hint" id="collectionHint">يجب اختيار 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة</p><button class="back selected-view-btn" id="showChosenBtn" type="button">عرض البطاقات المختارة</button></div>
-  <div class="cards" id="cardsGrid" aria-label="قائمة البطاقات"></div>
-  <div class="notice" id="notice" aria-live="polite"></div>
-</section>
-
-<div class="loading-screen" id="pageLoading" aria-live="polite">
-  <div class="spinner" aria-hidden="true"></div>
-  <h2>جارٍ التحميل...</h2>
-  <p id="loadingText">يتم تجهيز مجموعة البطاقات</p>
-</div>
-
-
-<div class="modal-wrap" id="chosenModal" role="dialog" aria-modal="true" aria-labelledby="chosenModalTitle">
-  <div class="modal chosen-modal">
-    <h3 id="chosenModalTitle">البطاقات المختارة</h3>
-    <div class="chosen-cards" id="chosenCardsGrid"></div>
-    <button class="close" id="closeChosenModal" type="button">إغلاق</button>
-  </div>
-</div>
-
-<div class="modal-wrap" id="inspectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="modal">
-    <h3 id="modalTitle">فحص البطاقة</h3>
-    <div class="modal-stats">
-      <div><span id="modalLifeLabel">الحياة</span><br><strong id="modalLife">0</strong></div>
-      <div><span id="modalDamageLabel">الضرر</span><br><strong id="modalDamage">0</strong></div>
-    </div>
-    <div class="effect-title">التأثيرات</div>
-    <div class="effect-box" id="modalEffect">${t('noEffects')}</div>
-    <button class="close" id="closeModal">إغلاق</button>
-  </div>
-</div>
+  </section>
+  <section class="screen" id="collection">
+    <div class="top"><h2 id="collectionHeading">مجموعة البطاقات</h2><button class="back" id="backBtn" type="button">رجوع</button></div>
+    <div class="counter"><div><span id="chosenCountLabel">البطاقات المختارة</span> <strong id="count">0 / 20</strong></div><div><div style="font-size:9px;color:#9fc9ed" id="completionLabel">اكتمال المجموعة</div><div class="progress"><span id="progressFill"></span></div></div></div>
+    <div class="collection-tools"><p class="hint" id="collectionHint">اختر 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة</p><button class="back selected-view" id="showChosenBtn" type="button">عرض البطاقات المختارة</button></div>
+    <div class="cards" id="cardsGrid" aria-label="قائمة البطاقات"></div><div class="notice" id="notice" aria-live="polite"></div>
+  </section>
+  <div class="modal-wrap" id="chosenModal" role="dialog" aria-modal="true" aria-labelledby="chosenModalTitle"><div class="modal chosen-modal"><h3 id="chosenModalTitle">البطاقات المختارة</h3><div class="chosen-cards" id="chosenCardsGrid"></div><button class="close" id="closeChosenModal" type="button">إغلاق</button></div></div>
+  <div class="modal-wrap" id="inspectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><h3 id="modalTitle">فحص البطاقة</h3><div class="modal-stats"><div><span id="modalLifeLabel">الحياة</span><br><strong id="modalLife">0</strong></div><div><span id="modalDamageLabel">الضرر</span><br><strong id="modalDamage">0</strong></div></div><div class="effect-title" id="effectsLabel">التأثيرات</div><div class="effect-box" id="modalEffect">لا توجد تأثيرات لهذه البطاقة حاليا.</div><button class="close" id="closeModal" type="button">إغلاق</button></div></div>
 </main>
 <script>
-let lang='ar', muted=false;
-const tr={
- ar:{title:'وحوش السحر',match:'بدء مباراة',collection:'المجموعة',settings:'الإعدادات',back:'رجوع',sound:'الصوت',soundDesc:'تشغيل أو كتم أصوات الواجهة',soundOn:'الصوت: يعمل',soundOff:'الصوت: مكتوم',language:'اللغة',languageDesc:'اختر لغة اللعبة',collectionTitle:'مجموعة البطاقات',count:'البطاقات المختارة',progress:'اكتمال المجموعة',hint:'يجب اختيار 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة',view:'عرض البطاقات المختارة',inspect:'فحص',choose:'اختيار',remove:'إلغاء',life:'حياة',damage:'ضرر',selected:'مختارة',empty:'لم تختر أي بطاقة بعد.',close:'إغلاق',effects:'التأثيرات',noEffects:'لا توجد تأثيرات لهذه البطاقة حاليا.',prepare:'يتم تجهيز مجموعة البطاقات',duel:'نظام المبارزة قيد التطوير',chosen:'تم اختيار البطاقة.',unselected:'تم إلغاء اختيار البطاقة.',limit:'وصلت إلى الحد الأقصى: 20 بطاقة.',loading:'جارٍ التحميل...',mustChoose20:'يجب اختيار 20 بطاقة في مجموعتك قبل بدء المباراة.'},
- en:{title:'Magic Monsters',match:'Start Match',collection:'Collection',settings:'Settings',back:'Back',sound:'Sound',soundDesc:'Play or mute interface sounds',soundOn:'Sound: On',soundOff:'Sound: Muted',language:'Language',languageDesc:'Choose the game language',collectionTitle:'Card Collection',count:'Selected cards',progress:'Collection progress',hint:'Select 20 different cards to complete the collection · One copy per card',view:'View selected cards',inspect:'Inspect',choose:'Select',remove:'Remove',life:'Life',damage:'Damage',selected:'Selected',empty:'You have not selected any cards yet.',close:'Close',effects:'Effects',noEffects:'This card has no effects yet.',prepare:'Preparing the card collection',duel:'Duel system is under development',chosen:'Card selected.',unselected:'Card selection removed.',limit:'Maximum reached: 20 cards.',loading:'Loading...',mustChoose20:'You must select 20 cards in your collection before starting a match.'}
+'use strict';
+const translations={
+  ar:{title:'وحوش السحر',match:'بدء مباراة',collection:'المجموعة',settings:'الإعدادات',back:'رجوع',sound:'الصوت',soundDesc:'تشغيل أو كتم أصوات الواجهة',soundOn:'الصوت: يعمل',soundOff:'الصوت: مكتوم',language:'اللغة',languageDesc:'اختر لغة اللعبة',collectionTitle:'مجموعة البطاقات',count:'البطاقات المختارة',progress:'اكتمال المجموعة',hint:'اختر 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة',view:'عرض البطاقات المختارة',close:'إغلاق',effects:'التأثيرات',life:'الحياة',damage:'الضرر',inspect:'فحص',choose:'اختيار',remove:'إزالة',selected:'مختارة',empty:'لم تختر أي بطاقة بعد.',noEffects:'لا توجد تأثيرات لهذه البطاقة حاليا.',chosen:'تم اختيار البطاقة.',unselected:'تمت إزالة البطاقة.',limit:'وصلت إلى الحد الأقصى: 20 بطاقة.',mustChoose20:'يجب اختيار 20 بطاقة في مجموعتك قبل بدء المباراة.',duel:'نظام المبارزة قيد التطوير.'},
+  en:{title:'Magic Monsters',match:'Start Match',collection:'Collection',settings:'Settings',back:'Back',sound:'Sound',soundDesc:'Play or mute interface sounds',soundOn:'Sound: On',soundOff:'Sound: Muted',language:'Language',languageDesc:'Choose the game language',collectionTitle:'Card Collection',count:'Selected cards',progress:'Collection progress',hint:'Choose 20 different cards to complete your collection · One copy per card',view:'View selected cards',close:'Close',effects:'Effects',life:'Life',damage:'Damage',inspect:'Inspect',choose:'Select',remove:'Remove',selected:'Selected',empty:'You have not selected any cards yet.',noEffects:'This card has no effects yet.',chosen:'Card selected.',unselected:'Card removed.',limit:'Maximum reached: 20 cards.',mustChoose20:'Select 20 cards in your collection before starting a match.',duel:'The duel system is under development.'}
 };
-const t=k=>tr[lang][k]||k;
-const cards=Array.from({length:25},(_,i)=>({id:i+1,name:lang==='ar'?`بطاقة ${i+1}`:`Card ${i+1}`,life:0,damage:0,effect:t('noEffects')}));
+let lang='ar',muted=false;
+try{lang=localStorage.getItem('magic-monsters-language')==='en'?'en':'ar';muted=localStorage.getItem('magic-monsters-muted')==='true';}catch{}
+const t=key=>translations[lang][key]||key;
+const $=id=>document.getElementById(id);
 const chosen=new Set();
-const home=document.getElementById('home');
-const settings=document.getElementById('settings');
-const grid=document.getElementById('cardsGrid');
-const count=document.getElementById('count');
-const fill=document.getElementById('progressFill');
-const notice=document.getElementById('notice');
-const collectionAlert=document.getElementById('collectionAlert');
-const modal=document.getElementById('inspectModal');
-const chosenModal=document.getElementById('chosenModal');
-const chosenCardsGrid=document.getElementById('chosenCardsGrid');
-const pageLoading=document.getElementById('pageLoading');
-let loadingTimer=null;
-
-// موحّد انتقالات الشاشات: تظهر شاشة التحميل أولاً، ثم يتم الانتقال.
-let screenTransitionTimer = null;
-function transitionToScreen(action, message = 'جارٍ التحميل...', duration = 350) {
-  if (screenTransitionTimer !== null) clearTimeout(screenTransitionTimer);
-  if (loadingTimer !== null) {
-    clearTimeout(loadingTimer);
-    loadingTimer = null;
-  }
-  document.getElementById('loadingText').textContent = message;
-  pageLoading.classList.add('show');
-  screenTransitionTimer = window.setTimeout(() => {
-    action();
-    pageLoading.classList.remove('show');
-    screenTransitionTimer = null;
-  }, duration);
-}
-
-
-function renderChosenCards(){
-  chosenCardsGrid.innerHTML='';
-  const selectedCards=cards.filter(card=>chosen.has(card.id));
-  if(selectedCards.length===0){
-    chosenCardsGrid.innerHTML=`<div class="chosen-empty">${t('empty')}</div>`;
-    return;
-  }
-  selectedCards.forEach(card=>{
-    const article=document.createElement('article');
-    article.className='card chosen';
-    article.innerHTML=`
-      <div class="card-head"><span class="card-name"></span></div>
-      <div class="stats">
-        <div class="stat"><small>${t('life')}</small><b>${card.life}</b></div>
-        <div class="stat"><small>${t('damage')}</small><b>${card.damage}</b></div>
-      </div>
-      <div class="card-actions">
-        <button class="inspect" type="button">${t('inspect')}</button>
-        <button class="select" type="button">${t('remove')}</button>
-      </div>`;
-    article.querySelector('.card-name').textContent=card.name;
-    article.querySelector('.inspect').addEventListener('click',()=>{
-      document.getElementById('modalTitle').textContent=card.name;
-      document.getElementById('modalLife').textContent=card.life;
-      document.getElementById('modalDamage').textContent=card.damage;
-      document.getElementById('modalEffect').textContent=card.effect;
-      modal.classList.add('open');
-    });
-    article.querySelector('.select').addEventListener('click',()=>{
-      chosen.delete(card.id);
-      notice.textContent=t('unselected');
-      renderCards();
-      renderChosenCards();
-    });
-    chosenCardsGrid.appendChild(article);
-  });
-}
-
+const cards=Array.from({length:25},(_,i)=>({id:i+1,life:100+i*10,damage:20+i*2}));
+function showScreen(id){document.querySelectorAll('.screen').forEach(screen=>screen.classList.toggle('active',screen.id===id));}
 function renderCards(){
-  grid.innerHTML='';
-  cards.forEach(card=>{
-    const selected=chosen.has(card.id);
-    const article=document.createElement('article');
-    article.className='card'+(selected?' chosen':'');
-    article.innerHTML=`
-      ${selected?`<span class="selected-label">✓ ${t('selected')}</span>`:''}
-      <div class="card-head"><span class="card-name">${card.name}</span></div>
-      <div class="stats">
-        <div class="stat"><small>${t('life')}</small><b>${card.life}</b></div>
-        <div class="stat"><small>${t('damage')}</small><b>${card.damage}</b></div>
-      </div>
-      <div class="card-actions">
-        <button class="inspect" type="button" data-inspect="${card.id}" aria-label="فحص ${card.name}">${t('inspect')}</button>
-        <button class="select" type="button" data-select="${card.id}">${selected?t('remove'):t('choose')}</button>
-      </div>`;
-    grid.appendChild(article);
+  const grid=$('cardsGrid');grid.replaceChildren();
+  cards.forEach(card=>{const selected=chosen.has(card.id),article=document.createElement('article');article.className='card'+(selected?' chosen':'');
+    article.innerHTML=`${selected?`<span class="selected-label">✓ ${t('selected')}</span>`:''}<div class="card-head"><span class="card-name"></span></div><div class="stats"><div class="stat"><small>${t('life')}</small><b>${card.life}</b></div><div class="stat"><small>${t('damage')}</small><b>${card.damage}</b></div></div><div class="card-actions"><button class="inspect" type="button" data-inspect="${card.id}">${t('inspect')}</button><button class="select" type="button" data-select="${card.id}">${selected?t('remove'):t('choose')}</button></div>`;
+    article.querySelector('.card-name').textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;grid.appendChild(article);
   });
-  count.textContent=`${chosen.size} / 20`;
-  collectionAlert.hidden=(chosen.size===20);
-  fill.style.width=`${chosen.size/20*100}%`;
-  grid.querySelectorAll('[data-select]').forEach(btn=>btn.addEventListener('click',()=>{
-    const id=Number(btn.dataset.select);
-    if(chosen.has(id)){chosen.delete(id);notice.textContent=t('unselected');}
-    else if(chosen.size>=20){notice.textContent=t('limit');return;}
-    else{chosen.add(id);notice.textContent=t('chosen');}
-    renderCards();
-  }));
-  grid.querySelectorAll('[data-inspect]').forEach(btn=>btn.addEventListener('click',()=>{
-    const card=cards.find(c=>c.id===Number(btn.dataset.inspect));
-    document.getElementById('modalTitle').textContent=card.name;
-    document.getElementById('modalLife').textContent=card.life;
-    document.getElementById('modalDamage').textContent=card.damage;
-    document.getElementById('modalEffect').textContent=card.effect;
-    modal.classList.add('open');
-  }));
+  $('count').textContent=`${chosen.size} / 20`;$('progressFill').style.width=`${chosen.size/20*100}%`;
+  grid.querySelectorAll('[data-select]').forEach(button=>button.addEventListener('click',()=>{const id=Number(button.dataset.select);if(chosen.has(id)){chosen.delete(id);$('notice').textContent=t('unselected');}else if(chosen.size>=20){$('notice').textContent=t('limit');return;}else{chosen.add(id);$('notice').textContent=t('chosen');}renderCards();}));
+  grid.querySelectorAll('[data-inspect]').forEach(button=>button.addEventListener('click',()=>openInspect(cards.find(card=>card.id===Number(button.dataset.inspect)))));
 }
-
-document.getElementById('collectionBtn').addEventListener('click',()=>{
-  transitionToScreen(()=>{
-    home.classList.remove('active');
-    settings.classList.remove('active');
-    document.getElementById('collection').classList.add('active');
-    renderCards();
-    notice.textContent='';
-  }, t('prepare'), 650);
-});
-document.getElementById('backBtn').addEventListener('click',()=>{
-  transitionToScreen(()=>{
-    document.getElementById('collection').classList.remove('active');
-    home.classList.add('active');
-    notice.textContent='';
-  }, t('loading'), 300);
-});
-document.getElementById('matchBtn').addEventListener('click',()=>{
-  // لا تبدأ المباراة إلا بعد اكتمال المجموعة بـ20 بطاقة مختلفة.
-  if (chosen.size !== 20) {
-    const warning = document.getElementById('deckWarning');
-    warning.textContent = t('mustChoose20');
-    warning.classList.add('show');
-    window.clearTimeout(warning._hideTimer);
-    warning._hideTimer = window.setTimeout(()=>{
-      warning.classList.remove('show');
-    }, 3000);
-    return;
-  }
-
-  transitionToScreen(()=>{
-    document.getElementById('loadingText').textContent = t('duel');
-  }, t('loading'), 350);
-  window.setTimeout(()=>{
-    if (!pageLoading.classList.contains('show')) {
-      document.getElementById('loadingText').textContent = t('duel');
-      pageLoading.classList.add('show');
-      window.setTimeout(()=>pageLoading.classList.remove('show'), 750);
-    }
-  }, 370);
-});
-document.getElementById('showChosenBtn').addEventListener('click',()=>{renderChosenCards();chosenModal.classList.add('open');});
-document.getElementById('closeChosenModal').addEventListener('click',()=>chosenModal.classList.remove('open'));
-chosenModal.addEventListener('click',e=>{if(e.target===chosenModal)chosenModal.classList.remove('open');});
-document.getElementById('closeModal').addEventListener('click',()=>modal.classList.remove('open'));
-modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.classList.remove('open');chosenModal.classList.remove('open');}});
-renderCards();
-collectionAlert.hidden=(chosen.size===20);
-
-// Settings navigation and controls
-const settingsScreen = document.getElementById('settings');
-const settingsButton = document.getElementById('settingsBtn');
-const settingsBack = document.getElementById('settingsBackBtn');
-const soundButton = document.getElementById('soundToggle');
-const arabicButton = document.getElementById('arabicBtn');
-const englishButton = document.getElementById('englishBtn');
-
-function openSettings(){
-  transitionToScreen(()=>{
-    home.classList.remove('active');
-    document.getElementById('collection').classList.remove('active');
-    settingsScreen.classList.add('active');
-  }, t('loading'), 350);
+function openInspect(card){if(!card)return;$('modalTitle').textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;$('modalLife').textContent=card.life;$('modalDamage').textContent=card.damage;$('modalEffect').textContent=t('noEffects');$('inspectModal').classList.add('open');$('closeModal').focus();}
+function renderChosen(){const grid=$('chosenCardsGrid');grid.replaceChildren();if(!chosen.size){const empty=document.createElement('div');empty.className='chosen-empty';empty.textContent=t('empty');grid.appendChild(empty);return;}cards.filter(card=>chosen.has(card.id)).forEach(card=>{const row=document.createElement('div');row.className='chosen-card';const name=document.createElement('span');name.textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;const remove=document.createElement('button');remove.type='button';remove.className='remove-card';remove.textContent='×';remove.setAttribute('aria-label',`${t('remove')} ${name.textContent}`);remove.addEventListener('click',()=>{chosen.delete(card.id);renderCards();renderChosen();});row.append(name,remove);grid.appendChild(row);});}
+function setLanguage(language){lang=language;document.documentElement.lang=lang;document.documentElement.dir=lang==='en'?'ltr':'rtl';document.title=t('title');
+  const values={homeTitle:'title',matchBtn:'match',collectionBtn:'collection',settingsBtn:'settings',settingsHeading:'settings',settingsBackBtn:'back',soundHeading:'sound',soundDescription:'soundDesc',languageHeading:'language',languageDescription:'languageDesc',collectionHeading:'collectionTitle',backBtn:'back',chosenCountLabel:'count',completionLabel:'progress',collectionHint:'hint',showChosenBtn:'view',chosenModalTitle:'view',closeChosenModal:'close',closeModal:'close',effectsLabel:'effects',modalLifeLabel:'life',modalDamageLabel:'damage'};
+  Object.entries(values).forEach(([id,key])=>{if($(id))$(id).textContent=t(key);});
+  $('soundToggle').textContent=muted?t('soundOff'):t('soundOn');$('soundToggle').setAttribute('aria-pressed',String(muted));
+  $('arabicBtn').classList.toggle('active',lang==='ar');$('englishBtn').classList.toggle('active',lang==='en');$('arabicBtn').setAttribute('aria-pressed',String(lang==='ar'));$('englishBtn').setAttribute('aria-pressed',String(lang==='en'));$('version').textContent=lang==='en'?'VERSION 0.3.0':'الإصدار 0.3.0';
+  if($('deckWarning').classList.contains('show'))$('deckWarning').textContent=t('mustChoose20');$('modalEffect').textContent=t('noEffects');renderCards();if($('chosenModal').classList.contains('open'))renderChosen();
+  try{localStorage.setItem('magic-monsters-language',lang);}catch{}
 }
-function closeSettings(){
-  transitionToScreen(()=>{
-    settingsScreen.classList.remove('active');
-    home.classList.add('active');
-  }, t('loading'), 300);
-}
-settingsButton.addEventListener('click', openSettings);
-settingsBack.addEventListener('click', closeSettings);
-
-function setLanguage(language){
-  lang = language;
-  const english = language === 'en';
-  document.documentElement.lang = language;
-  document.documentElement.dir = english ? 'ltr' : 'rtl';
-  const labels = english ? {
-    title:'Magic Monsters', match:'Start Match', collection:'Collection',
-    settings:'Settings', back:'Back', sound:'Sound',
-    soundDesc:'Play or mute interface sounds', soundOn:'Sound: On',
-    soundOff:'Sound: Muted', language:'Language',
-    languageDesc:'Choose the game language', collectionTitle:'Card Collection',
-    count:'Selected cards', progress:'Collection progress',
-    hint:'Select 20 different cards to complete the collection · One copy per card',
-    view:'View selected cards', close:'Close', effects:'Effects',
-    life:'Life', damage:'Damage'
-  } : {
-    title:'وحوش السحر', match:'بدء مباراة', collection:'المجموعة',
-    settings:'الإعدادات', back:'رجوع', sound:'الصوت',
-    soundDesc:'تشغيل أو كتم أصوات الواجهة', soundOn:'الصوت: يعمل',
-    soundOff:'الصوت: مكتوم', language:'اللغة',
-    languageDesc:'اختر لغة اللعبة', collectionTitle:'مجموعة البطاقات',
-    count:'البطاقات المختارة', progress:'اكتمال المجموعة',
-    hint:'يجب اختيار 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة',
-    view:'عرض البطاقات المختارة', close:'إغلاق', effects:'التأثيرات',
-    life:'حياة', damage:'ضرر'
-  };
-  document.title = labels.title;
-  const warningElement = document.getElementById('deckWarning');
-  if (warningElement && warningElement.classList.contains('show')) warningElement.textContent = t('mustChoose20');
-  const assign = (id, value) => {
-    const element = document.getElementById(id);
-    if (element) element.textContent = value;
-  };
-  assign('homeTitle', labels.title);
-  assign('matchBtn', labels.match);
-  assign('collectionBtn', labels.collection);
-  assign('settingsBtn', labels.settings);
-  assign('settingsHeading', labels.settings);
-  assign('settingsBackBtn', labels.back);
-  assign('soundHeading', labels.sound);
-  assign('soundDescription', labels.soundDesc);
-  assign('languageHeading', labels.language);
-  assign('languageDescription', labels.languageDesc);
-  assign('collectionHeading', labels.collectionTitle);
-  assign('backBtn', labels.back);
-  assign('chosenCountLabel', labels.count);
-  assign('completionLabel', labels.progress);
-  assign('collectionHint', labels.hint);
-  assign('showChosenBtn', labels.view);
-  assign('chosenModalTitle', labels.view);
-  assign('closeChosenModal', labels.close);
-  assign('closeModal', labels.close);
-  assign('effectsLabel', labels.effects);
-  assign('modalLifeLabel', labels.life);
-  assign('modalDamageLabel', labels.damage);
-  soundButton.textContent = muted ? labels.soundOff : labels.soundOn;
-  arabicButton.classList.toggle('active', !english);
-  englishButton.classList.toggle('active', english);
-  document.querySelector('.version').textContent = english ? 'VERSION 0.3.0' : 'الإصدار 0.3.0';
-  cards.forEach((card, index) => {
-    card.name = english ? `Card ${index + 1}` : `بطاقة ${index + 1}`;
-    card.effect = english ? 'This card has no effects yet.' : 'لا توجد تأثيرات لهذه البطاقة حاليا.';
-  });
-  renderCards();
-  if (chosenModal.classList.contains('open')) renderChosenCards();
-}
-arabicButton.addEventListener('click', () => setLanguage('ar'));
-englishButton.addEventListener('click', () => setLanguage('en'));
-
-soundButton.addEventListener('click', () => {
-  muted = !muted;
-  soundButton.textContent = muted
-    ? (lang === 'en' ? 'Sound: Muted' : 'الصوت: مكتوم')
-    : (lang === 'en' ? 'Sound: On' : 'الصوت: يعمل');
-  soundButton.setAttribute('aria-pressed', String(muted));
-});
-
-
-
-
-// تم حذف مستمع التحميل العام لتجنب تعارضه مع مؤقتات الشاشات.
+$('collectionBtn').addEventListener('click',()=>{showScreen('collection');$('notice').textContent='';renderCards();});
+$('backBtn').addEventListener('click',()=>showScreen('home'));
+$('settingsBtn').addEventListener('click',()=>showScreen('settings'));
+$('settingsBackBtn').addEventListener('click',()=>showScreen('home'));
+$('arabicBtn').addEventListener('click',()=>setLanguage('ar'));
+$('englishBtn').addEventListener('click',()=>setLanguage('en'));
+$('soundToggle').addEventListener('click',()=>{muted=!muted;$('soundToggle').textContent=muted?t('soundOff'):t('soundOn');$('soundToggle').setAttribute('aria-pressed',String(muted));try{localStorage.setItem('magic-monsters-muted',String(muted));}catch{}});
+$('matchBtn').addEventListener('click',()=>{if(chosen.size!==20){const warning=$('deckWarning');warning.textContent=t('mustChoose20');warning.classList.add('show');clearTimeout(warning._timer);warning._timer=setTimeout(()=>warning.classList.remove('show'),3000);return;}window.alert(t('duel'));});
+$('showChosenBtn').addEventListener('click',()=>{renderChosen();$('chosenModal').classList.add('open');$('closeChosenModal').focus();});
+$('closeChosenModal').addEventListener('click',()=> $('chosenModal').classList.remove('open'));
+$('closeModal').addEventListener('click',()=> $('inspectModal').classList.remove('open'));
+[$('chosenModal'),$('inspectModal')].forEach(modal=>modal.addEventListener('click',event=>{if(event.target===modal)modal.classList.remove('open');}));
+document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.modal-wrap.open').forEach(modal=>modal.classList.remove('open'));});
+setLanguage(lang);
 </script>
 </body>
 </html>
