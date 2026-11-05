@@ -6,134 +6,70 @@
   <meta name="theme-color" content="#071a3b">
   <title>وحوش السحر</title>
   <style>
-    :root{color-scheme:dark;--blue:#75caff;--line:#5289bb}
+    :root{color-scheme:dark;--blue:#75caff}
     *{box-sizing:border-box}
     html,body{margin:0;min-height:100%;font-family:Tahoma,Arial,sans-serif;background:#040d20;color:#f3f8ff}
     body{min-height:100vh;min-height:100dvh;background:radial-gradient(ellipse at 50% 20%,#123e78,#06132d 72%)}
-    button{font:inherit;touch-action:manipulation;cursor:pointer}
-    button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+    button{font:inherit;touch-action:manipulation;cursor:pointer}button:focus-visible{outline:3px solid #fff;outline-offset:2px}
     .app{position:relative;width:100%;max-width:480px;min-height:100vh;min-height:100dvh;margin:0 auto;overflow:hidden;border-inline:1px solid #3979b8;background:radial-gradient(ellipse at 50% 18%,#123d70,#0a2448 52%,#06152e)}
-    .screen{display:none;min-height:100vh;min-height:100dvh;padding:18px 14px;flex-direction:column}
-    .screen.active{display:flex}
-    .home{align-items:center;text-align:center;padding:34px 24px 20px}
-    .home-brand{margin:8vh 0 0}
-    h1{font-size:clamp(34px,9vw,44px);margin:0;text-shadow:0 0 12px #59baff}
-    .eng{direction:ltr;letter-spacing:5px;color:#a4d5ff;font-size:10px;margin-top:8px}
-    .divider{width:75%;height:1px;background:linear-gradient(90deg,transparent,#83caff,transparent);margin:23px auto}
-    .menu-buttons{width:100%;display:grid;gap:14px;margin:auto 0}
-    .primary,.secondary,.back,.inspect,.select,.close,.setting-control{border:1px solid #83caff88;color:#fff;border-radius:11px;background:linear-gradient(110deg,#16477f,#1769ad,#164477);font-weight:700}
-    .primary,.secondary{width:100%;min-height:58px;font-size:18px}
-    .secondary{background:linear-gradient(110deg,#102d55,#174477)}
-    .version{font-size:10px;color:#82a8d1}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:40px;margin-bottom:12px}
-    .top h2{font-size:18px;margin:0}
-    .back{padding:7px 14px;font-size:13px}
-    .settings-panel{display:flex;flex-direction:column;gap:12px;margin-top:10px}
-    .setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 12px;border:1px solid #67baff55;background:#0c2a50;border-radius:11px}
-    .setting-row>div:first-child{display:flex;flex-direction:column;gap:5px}
-    .setting-row strong{font-size:15px}.setting-row small{font-size:10px;color:#a9c9e8}
-    .setting-control{padding:9px 11px;min-height:40px;font-size:12px;white-space:nowrap}
-    .setting-control.active{background:#236da4;box-shadow:0 0 8px #59baff55}
-    .language-buttons{display:flex;gap:6px}
-    .counter{border:1px solid #67baff55;background:#0c2a50;border-radius:9px;padding:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:#c7e5ff}
-    .counter strong{font-size:16px;color:#fff;white-space:nowrap}
+    .screen{display:none;min-height:100vh;min-height:100dvh;padding:18px 14px;flex-direction:column}.screen.active{display:flex}
+    .home{align-items:center;text-align:center;padding:34px 24px 20px}.home-brand{margin:8vh 0 0}h1{font-size:clamp(34px,9vw,44px);margin:0;text-shadow:0 0 12px #59baff}
+    .eng{direction:ltr;letter-spacing:5px;color:#a4d5ff;font-size:10px;margin-top:8px}.divider{width:75%;height:1px;background:linear-gradient(90deg,transparent,#83caff,transparent);margin:23px auto}
+    .menu-buttons{width:100%;display:grid;gap:14px;margin:auto 0}.primary,.secondary,.back,.inspect,.select,.close,.setting-control{border:1px solid #83caff88;color:#fff;border-radius:11px;background:linear-gradient(110deg,#16477f,#1769ad,#164477);font-weight:700}
+    .primary,.secondary{width:100%;min-height:58px;font-size:18px}.secondary{background:linear-gradient(110deg,#102d55,#174477)}.version{font-size:10px;color:#82a8d1}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:40px;margin-bottom:12px}.top h2{font-size:18px;margin:0}.back{padding:7px 14px;font-size:13px}
+    .settings-panel{display:flex;flex-direction:column;gap:12px;margin-top:10px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 12px;border:1px solid #67baff55;background:#0c2a50;border-radius:11px}
+    .setting-row>div:first-child{display:flex;flex-direction:column;gap:5px}.setting-row strong{font-size:15px}.setting-row small{font-size:10px;color:#a9c9e8}.setting-control{padding:9px 11px;min-height:40px;font-size:12px;white-space:nowrap}.setting-control.active{background:#236da4;box-shadow:0 0 8px #59baff55}.language-buttons{display:flex;gap:6px}
+    .counter{border:1px solid #67baff55;background:#0c2a50;border-radius:9px;padding:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11px;color:#c7e5ff}.counter strong{font-size:16px;color:#fff;white-space:nowrap}
     .progress{height:4px;width:110px;background:#ffffff1c;border-radius:9px;margin-top:5px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:#80d4ff;transition:width .2s}
-    .collection-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:9px 0}
-    .hint{flex:1;min-width:0;font-size:10px;color:#9dbbd9;margin:0;line-height:1.45}
-    .selected-view{flex:0 0 auto;padding:7px 9px;font-size:11px}
-    .cards{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(132px,auto);gap:7px;overflow:auto;padding:2px 2px 8px;align-content:start}
-    .card{min-width:0;border:1px solid #5685b5;border-radius:9px;padding:6px 4px;background:linear-gradient(155deg,#153d6c,#0a2040);display:flex;flex-direction:column;justify-content:space-between;gap:6px;position:relative}
-    .card.chosen{border:2px solid #8cddff;background:linear-gradient(155deg,#205a8b,#102c50);box-shadow:0 0 9px #50bfff55}
-    .card-head{text-align:center}.card-name{font-size:clamp(9px,2.7vw,12px);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .collection-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:9px 0}.hint{flex:1;min-width:0;font-size:10px;color:#9dbbd9;margin:0;line-height:1.45}.selected-view{flex:0 0 auto;padding:7px 9px;font-size:11px}
+    .cards{flex:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:minmax(132px,auto);gap:7px;overflow:auto;padding:2px 2px 8px;align-content:start}.card{min-width:0;border:1px solid #5685b5;border-radius:9px;padding:6px 4px;background:linear-gradient(155deg,#153d6c,#0a2040);display:flex;flex-direction:column;justify-content:space-between;gap:6px;position:relative}
+    .card.chosen{border:2px solid #8cddff;background:linear-gradient(155deg,#205a8b,#102c50);box-shadow:0 0 9px #50bfff55}.card-head{text-align:center}.card-name{font-size:clamp(9px,2.7vw,12px);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .stats{display:grid;grid-template-columns:1fr 1fr;gap:3px}.stat{background:#06172f99;border:1px solid #7ab8e52b;border-radius:5px;padding:4px 1px;text-align:center}.stat small{display:block;color:#a7c9e8;font-size:8px}.stat b{font-size:11px}
     .card-actions{display:grid;grid-template-columns:1fr 1fr;gap:4px}.card-actions button{min-width:0;min-height:28px;padding:3px 1px;font-size:10px;border-radius:6px}.inspect{background:#102b4e;border-color:#5e91c4}.select{background:linear-gradient(110deg,#15558a,#1977b8)}
-    .selected-label{position:absolute;top:3px;inset-inline-end:3px;background:#75d4ff;color:#06203e;font-size:8px;font-weight:bold;padding:2px 4px;border-radius:4px}
-    .notice{min-height:18px;color:#ffd98c;font-size:10px;text-align:center;line-height:18px}
-    .modal-wrap{position:fixed;inset:0;background:#020916e8;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal-wrap.open{display:flex}
-    .modal{width:min(100%,360px);max-height:85vh;overflow:auto;border:1px solid #72bfff;border-radius:16px;padding:16px;background:linear-gradient(150deg,#174779,#071a35);box-shadow:0 0 30px #238bdb55}
-    .modal h3{margin:0 0 12px;font-size:20px}.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}.modal-stats div{padding:9px;background:#06172f;border-radius:8px;text-align:center;font-size:12px}
-    .effect-title{color:#9bd8ff;font-size:12px;font-weight:bold;margin:10px 0 5px}.effect-box{background:#06172f;border:1px solid #6da9d833;border-radius:9px;padding:10px;font-size:12px;line-height:1.7;color:#d9eaff;min-height:48px}
-    .close{width:100%;margin-top:12px;min-height:40px}.chosen-modal{width:min(100%,390px)}.chosen-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:60vh;overflow:auto}.chosen-card{padding:9px;background:#0c2a50;border:1px solid #5685b5;border-radius:8px;font-size:12px;display:flex;justify-content:space-between;gap:8px}.remove-card{border:0;background:transparent;color:#ffb0b0;font-weight:bold}
-    .warning{position:fixed;top:12px;inset-inline:12px;z-index:8;display:none;padding:12px;border:1px solid #ffd27a;border-radius:11px;background:#50330f;color:#fff2d5;text-align:center;font-size:13px;line-height:1.5}.warning.show{display:block}
-    @media(max-width:350px){.screen{padding:12px 9px}.cards{gap:4px;grid-auto-rows:minmax(122px,auto)}.card-actions button{font-size:9px}.setting-control{padding-inline:7px}}
-    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+    .selected-label{position:absolute;top:3px;inset-inline-end:3px;background:#75d4ff;color:#06203e;font-size:8px;font-weight:bold;padding:2px 4px;border-radius:4px}.notice{min-height:18px;color:#ffd98c;font-size:10px;text-align:center;line-height:18px}
+    .loading-screen{position:fixed;inset:0;z-index:10;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(ellipse at center,#164d89,#06142f 75%)}.loading-screen.show{display:flex}.spinner{width:44px;height:44px;border:4px solid #ffffff35;border-top-color:#9be0ff;border-radius:50%;animation:spin .8s linear infinite}.loading-screen h2{font-size:21px;margin:18px 0 7px}.loading-screen p{font-size:12px;color:#b1d9fa;margin:0}
+    .modal-wrap{position:fixed;inset:0;background:#020916e8;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modal-wrap.open{display:flex}.modal{width:min(100%,360px);max-height:85vh;overflow:auto;border:1px solid #72bfff;border-radius:16px;padding:16px;background:linear-gradient(150deg,#174779,#071a35);box-shadow:0 0 30px #238bdb55}
+    .modal h3{margin:0 0 12px;font-size:20px}.modal-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:13px}.modal-stats div{padding:9px;background:#06172f;border-radius:8px;text-align:center;font-size:12px}.effect-title{color:#9bd8ff;font-size:12px;font-weight:bold;margin:10px 0 5px}.effect-box{background:#06172f;border:1px solid #6da9d833;border-radius:9px;padding:10px;font-size:12px;line-height:1.7;color:#d9eaff;min-height:48px}.close{width:100%;margin-top:12px;min-height:40px}.chosen-modal{width:min(100%,390px)}.chosen-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:60vh;overflow:auto}.chosen-card{padding:9px;background:#0c2a50;border:1px solid #5685b5;border-radius:8px;font-size:12px;display:flex;justify-content:space-between;gap:8px}.remove-card{border:0;background:transparent;color:#ffb0b0;font-weight:bold}
+    .warning{position:fixed;top:12px;inset-inline:12px;z-index:12;display:none;padding:12px;border:1px solid #ffd27a;border-radius:11px;background:#50330f;color:#fff2d5;text-align:center;font-size:13px;line-height:1.5}.warning.show{display:block}
+    @keyframes spin{to{transform:rotate(360deg)}}@media(max-width:350px){.screen{padding:12px 9px}.cards{gap:4px;grid-auto-rows:minmax(122px,auto)}.card-actions button{font-size:9px}.setting-control{padding-inline:7px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition:none!important}}
   </style>
 </head>
 <body>
 <main class="app">
   <div class="warning" id="deckWarning" role="alert" aria-live="assertive"></div>
-  <section class="screen home active" id="home">
-    <div class="home-brand"><h1 id="homeTitle">وحوش السحر</h1><div class="eng">MAGIC MONSTERS</div><div class="divider"></div></div>
-    <div class="menu-buttons">
-      <button class="primary" id="matchBtn" type="button">بدء مباراة</button>
-      <button class="secondary" id="collectionBtn" type="button">المجموعة</button>
-      <button class="secondary" id="settingsBtn" type="button">الإعدادات</button>
-    </div>
-    <div class="version" id="version">الإصدار 0.3.0</div>
-  </section>
-  <section class="screen" id="settings">
-    <div class="top"><h2 id="settingsHeading">الإعدادات</h2><button class="back" id="settingsBackBtn" type="button">رجوع</button></div>
-    <div class="settings-panel">
-      <div class="setting-row"><div><strong id="soundHeading">الصوت</strong><small id="soundDescription">تشغيل أو كتم أصوات الواجهة</small></div><button class="setting-control" id="soundToggle" type="button" aria-pressed="false">الصوت: يعمل</button></div>
-      <div class="setting-row"><div><strong id="languageHeading">اللغة</strong><small id="languageDescription">اختر لغة اللعبة</small></div><div class="language-buttons"><button class="setting-control active" id="arabicBtn" type="button" aria-pressed="true">العربية</button><button class="setting-control" id="englishBtn" type="button" aria-pressed="false">English</button></div></div>
-    </div>
-  </section>
-  <section class="screen" id="collection">
-    <div class="top"><h2 id="collectionHeading">مجموعة البطاقات</h2><button class="back" id="backBtn" type="button">رجوع</button></div>
-    <div class="counter"><div><span id="chosenCountLabel">البطاقات المختارة</span> <strong id="count">0 / 20</strong></div><div><div style="font-size:9px;color:#9fc9ed" id="completionLabel">اكتمال المجموعة</div><div class="progress"><span id="progressFill"></span></div></div></div>
-    <div class="collection-tools"><p class="hint" id="collectionHint">اختر 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة</p><button class="back selected-view" id="showChosenBtn" type="button">عرض البطاقات المختارة</button></div>
-    <div class="cards" id="cardsGrid" aria-label="قائمة البطاقات"></div><div class="notice" id="notice" aria-live="polite"></div>
-  </section>
+  <section class="screen home active" id="home"><div class="home-brand"><h1 id="homeTitle">وحوش السحر</h1><div class="eng">MAGIC MONSTERS</div><div class="divider"></div></div><div class="menu-buttons"><button class="primary" id="matchBtn" type="button">بدء مباراة</button><button class="secondary" id="collectionBtn" type="button">المجموعة</button><button class="secondary" id="settingsBtn" type="button">الإعدادات</button></div><div class="version" id="version">الإصدار 0.3.0</div></section>
+  <section class="screen" id="settings"><div class="top"><h2 id="settingsHeading">الإعدادات</h2><button class="back" id="settingsBackBtn" type="button">رجوع</button></div><div class="settings-panel"><div class="setting-row"><div><strong id="soundHeading">الصوت</strong><small id="soundDescription">تشغيل أو كتم أصوات الواجهة</small></div><button class="setting-control" id="soundToggle" type="button" aria-pressed="false">الصوت: يعمل</button></div><div class="setting-row"><div><strong id="languageHeading">اللغة</strong><small id="languageDescription">اختر لغة اللعبة</small></div><div class="language-buttons"><button class="setting-control active" id="arabicBtn" type="button" aria-pressed="true">العربية</button><button class="setting-control" id="englishBtn" type="button" aria-pressed="false">English</button></div></div></div></section>
+  <section class="screen" id="collection"><div class="top"><h2 id="collectionHeading">مجموعة البطاقات</h2><button class="back" id="backBtn" type="button">رجوع</button></div><div class="counter"><div><span id="chosenCountLabel">البطاقات المختارة</span> <strong id="count">0 / 20</strong></div><div><div style="font-size:9px;color:#9fc9ed" id="completionLabel">اكتمال المجموعة</div><div class="progress"><span id="progressFill"></span></div></div></div><div class="collection-tools"><p class="hint" id="collectionHint">اختر 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة</p><button class="back selected-view" id="showChosenBtn" type="button">عرض البطاقات المختارة</button></div><div class="cards" id="cardsGrid" aria-label="قائمة البطاقات"></div><div class="notice" id="notice" aria-live="polite"></div></section>
+  <div class="loading-screen" id="pageLoading" aria-live="polite"><div class="spinner" aria-hidden="true"></div><h2 id="loadingHeading">جارٍ التحميل...</h2><p id="loadingText">يتم تجهيز اللعبة</p></div>
   <div class="modal-wrap" id="chosenModal" role="dialog" aria-modal="true" aria-labelledby="chosenModalTitle"><div class="modal chosen-modal"><h3 id="chosenModalTitle">البطاقات المختارة</h3><div class="chosen-cards" id="chosenCardsGrid"></div><button class="close" id="closeChosenModal" type="button">إغلاق</button></div></div>
   <div class="modal-wrap" id="inspectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><h3 id="modalTitle">فحص البطاقة</h3><div class="modal-stats"><div><span id="modalLifeLabel">الحياة</span><br><strong id="modalLife">0</strong></div><div><span id="modalDamageLabel">الضرر</span><br><strong id="modalDamage">0</strong></div></div><div class="effect-title" id="effectsLabel">التأثيرات</div><div class="effect-box" id="modalEffect">لا توجد تأثيرات لهذه البطاقة حاليا.</div><button class="close" id="closeModal" type="button">إغلاق</button></div></div>
 </main>
 <script>
 'use strict';
 const translations={
-  ar:{title:'وحوش السحر',match:'بدء مباراة',collection:'المجموعة',settings:'الإعدادات',back:'رجوع',sound:'الصوت',soundDesc:'تشغيل أو كتم أصوات الواجهة',soundOn:'الصوت: يعمل',soundOff:'الصوت: مكتوم',language:'اللغة',languageDesc:'اختر لغة اللعبة',collectionTitle:'مجموعة البطاقات',count:'البطاقات المختارة',progress:'اكتمال المجموعة',hint:'اختر 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة',view:'عرض البطاقات المختارة',close:'إغلاق',effects:'التأثيرات',life:'الحياة',damage:'الضرر',inspect:'فحص',choose:'اختيار',remove:'إزالة',selected:'مختارة',empty:'لم تختر أي بطاقة بعد.',noEffects:'لا توجد تأثيرات لهذه البطاقة حاليا.',chosen:'تم اختيار البطاقة.',unselected:'تمت إزالة البطاقة.',limit:'وصلت إلى الحد الأقصى: 20 بطاقة.',mustChoose20:'يجب اختيار 20 بطاقة في مجموعتك قبل بدء المباراة.',duel:'نظام المبارزة قيد التطوير.'},
-  en:{title:'Magic Monsters',match:'Start Match',collection:'Collection',settings:'Settings',back:'Back',sound:'Sound',soundDesc:'Play or mute interface sounds',soundOn:'Sound: On',soundOff:'Sound: Muted',language:'Language',languageDesc:'Choose the game language',collectionTitle:'Card Collection',count:'Selected cards',progress:'Collection progress',hint:'Choose 20 different cards to complete your collection · One copy per card',view:'View selected cards',close:'Close',effects:'Effects',life:'Life',damage:'Damage',inspect:'Inspect',choose:'Select',remove:'Remove',selected:'Selected',empty:'You have not selected any cards yet.',noEffects:'This card has no effects yet.',chosen:'Card selected.',unselected:'Card removed.',limit:'Maximum reached: 20 cards.',mustChoose20:'Select 20 cards in your collection before starting a match.',duel:'The duel system is under development.'}
+ ar:{title:'وحوش السحر',match:'بدء مباراة',collection:'المجموعة',settings:'الإعدادات',back:'رجوع',sound:'الصوت',soundDesc:'تشغيل أو كتم أصوات الواجهة',soundOn:'الصوت: يعمل',soundOff:'الصوت: مكتوم',language:'اللغة',languageDesc:'اختر لغة اللعبة',collectionTitle:'مجموعة البطاقات',count:'البطاقات المختارة',progress:'اكتمال المجموعة',hint:'اختر 20 بطاقة مختلفة لإكمال المجموعة · نسخة واحدة من كل بطاقة',view:'عرض البطاقات المختارة',close:'إغلاق',effects:'التأثيرات',life:'الحياة',damage:'الضرر',inspect:'فحص',choose:'اختيار',remove:'إزالة',selected:'مختارة',empty:'لم تختر أي بطاقة بعد.',noEffects:'لا توجد تأثيرات لهذه البطاقة حاليا.',chosen:'تم اختيار البطاقة.',unselected:'تمت إزالة البطاقة.',limit:'وصلت إلى الحد الأقصى: 20 بطاقة.',mustChoose20:'يجب اختيار 20 بطاقة في مجموعتك قبل بدء المباراة.',duel:'نظام المبارزة قيد التطوير.',loading:'جارٍ التحميل...',prepare:'يتم تجهيز مجموعة البطاقات',settingsLoading:'يتم فتح الإعدادات',homeLoading:'جارٍ العودة إلى القائمة',matchLoading:'يتم تجهيز المباراة'},
+ en:{title:'Magic Monsters',match:'Start Match',collection:'Collection',settings:'Settings',back:'Back',sound:'Sound',soundDesc:'Play or mute interface sounds',soundOn:'Sound: On',soundOff:'Sound: Muted',language:'Language',languageDesc:'Choose the game language',collectionTitle:'Card Collection',count:'Selected cards',progress:'Collection progress',hint:'Choose 20 different cards to complete your collection · One copy per card',view:'View selected cards',close:'Close',effects:'Effects',life:'Life',damage:'Damage',inspect:'Inspect',choose:'Select',remove:'Remove',selected:'Selected',empty:'You have not selected any cards yet.',noEffects:'This card has no effects yet.',chosen:'Card selected.',unselected:'Card removed.',limit:'Maximum reached: 20 cards.',mustChoose20:'Select 20 cards in your collection before starting a match.',duel:'The duel system is under development.',loading:'Loading...',prepare:'Preparing your card collection',settingsLoading:'Opening settings',homeLoading:'Returning to the menu',matchLoading:'Preparing the match'}
 };
-let lang='ar',muted=false;
+let lang='ar',muted=false,transitionTimer=null;
 try{lang=localStorage.getItem('magic-monsters-language')==='en'?'en':'ar';muted=localStorage.getItem('magic-monsters-muted')==='true';}catch{}
-const t=key=>translations[lang][key]||key;
-const $=id=>document.getElementById(id);
-const chosen=new Set();
-const cards=Array.from({length:25},(_,i)=>({id:i+1,life:100+i*10,damage:20+i*2}));
+const t=key=>translations[lang][key]||key,$=id=>document.getElementById(id),chosen=new Set();
+const cards=Array.from({length:25},(_,i)=>({id:i+1,life:0,damage:0}));
 function showScreen(id){document.querySelectorAll('.screen').forEach(screen=>screen.classList.toggle('active',screen.id===id));}
-function renderCards(){
-  const grid=$('cardsGrid');grid.replaceChildren();
-  cards.forEach(card=>{const selected=chosen.has(card.id),article=document.createElement('article');article.className='card'+(selected?' chosen':'');
-    article.innerHTML=`${selected?`<span class="selected-label">✓ ${t('selected')}</span>`:''}<div class="card-head"><span class="card-name"></span></div><div class="stats"><div class="stat"><small>${t('life')}</small><b>${card.life}</b></div><div class="stat"><small>${t('damage')}</small><b>${card.damage}</b></div></div><div class="card-actions"><button class="inspect" type="button" data-inspect="${card.id}">${t('inspect')}</button><button class="select" type="button" data-select="${card.id}">${selected?t('remove'):t('choose')}</button></div>`;
-    article.querySelector('.card-name').textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;grid.appendChild(article);
-  });
-  $('count').textContent=`${chosen.size} / 20`;$('progressFill').style.width=`${chosen.size/20*100}%`;
-  grid.querySelectorAll('[data-select]').forEach(button=>button.addEventListener('click',()=>{const id=Number(button.dataset.select);if(chosen.has(id)){chosen.delete(id);$('notice').textContent=t('unselected');}else if(chosen.size>=20){$('notice').textContent=t('limit');return;}else{chosen.add(id);$('notice').textContent=t('chosen');}renderCards();}));
-  grid.querySelectorAll('[data-inspect]').forEach(button=>button.addEventListener('click',()=>openInspect(cards.find(card=>card.id===Number(button.dataset.inspect)))));
-}
+function transitionTo(action,message=t('loading'),duration=350){clearTimeout(transitionTimer);$('loadingHeading').textContent=t('loading');$('loadingText').textContent=message;$('pageLoading').classList.add('show');transitionTimer=setTimeout(()=>{action();$('pageLoading').classList.remove('show');transitionTimer=null;},duration);}
+function renderCards(){const grid=$('cardsGrid');grid.replaceChildren();cards.forEach(card=>{const selected=chosen.has(card.id),article=document.createElement('article');article.className='card'+(selected?' chosen':'');article.innerHTML=`${selected?`<span class="selected-label">✓ ${t('selected')}</span>`:''}<div class="card-head"><span class="card-name"></span></div><div class="stats"><div class="stat"><small>${t('life')}</small><b>${card.life}</b></div><div class="stat"><small>${t('damage')}</small><b>${card.damage}</b></div></div><div class="card-actions"><button class="inspect" type="button" data-inspect="${card.id}">${t('inspect')}</button><button class="select" type="button" data-select="${card.id}">${selected?t('remove'):t('choose')}</button></div>`;article.querySelector('.card-name').textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;grid.appendChild(article);});$('count').textContent=`${chosen.size} / 20`;$('progressFill').style.width=`${chosen.size/20*100}%`;grid.querySelectorAll('[data-select]').forEach(button=>button.addEventListener('click',()=>{const id=Number(button.dataset.select);if(chosen.has(id)){chosen.delete(id);$('notice').textContent=t('unselected');}else if(chosen.size>=20){$('notice').textContent=t('limit');return;}else{chosen.add(id);$('notice').textContent=t('chosen');}renderCards();}));grid.querySelectorAll('[data-inspect]').forEach(button=>button.addEventListener('click',()=>openInspect(cards.find(card=>card.id===Number(button.dataset.inspect)))));}
 function openInspect(card){if(!card)return;$('modalTitle').textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;$('modalLife').textContent=card.life;$('modalDamage').textContent=card.damage;$('modalEffect').textContent=t('noEffects');$('inspectModal').classList.add('open');$('closeModal').focus();}
-function renderChosen(){const grid=$('chosenCardsGrid');grid.replaceChildren();if(!chosen.size){const empty=document.createElement('div');empty.className='chosen-empty';empty.textContent=t('empty');grid.appendChild(empty);return;}cards.filter(card=>chosen.has(card.id)).forEach(card=>{const row=document.createElement('div');row.className='chosen-card';const name=document.createElement('span');name.textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;const remove=document.createElement('button');remove.type='button';remove.className='remove-card';remove.textContent='×';remove.setAttribute('aria-label',`${t('remove')} ${name.textContent}`);remove.addEventListener('click',()=>{chosen.delete(card.id);renderCards();renderChosen();});row.append(name,remove);grid.appendChild(row);});}
-function setLanguage(language){lang=language;document.documentElement.lang=lang;document.documentElement.dir=lang==='en'?'ltr':'rtl';document.title=t('title');
-  const values={homeTitle:'title',matchBtn:'match',collectionBtn:'collection',settingsBtn:'settings',settingsHeading:'settings',settingsBackBtn:'back',soundHeading:'sound',soundDescription:'soundDesc',languageHeading:'language',languageDescription:'languageDesc',collectionHeading:'collectionTitle',backBtn:'back',chosenCountLabel:'count',completionLabel:'progress',collectionHint:'hint',showChosenBtn:'view',chosenModalTitle:'view',closeChosenModal:'close',closeModal:'close',effectsLabel:'effects',modalLifeLabel:'life',modalDamageLabel:'damage'};
-  Object.entries(values).forEach(([id,key])=>{if($(id))$(id).textContent=t(key);});
-  $('soundToggle').textContent=muted?t('soundOff'):t('soundOn');$('soundToggle').setAttribute('aria-pressed',String(muted));
-  $('arabicBtn').classList.toggle('active',lang==='ar');$('englishBtn').classList.toggle('active',lang==='en');$('arabicBtn').setAttribute('aria-pressed',String(lang==='ar'));$('englishBtn').setAttribute('aria-pressed',String(lang==='en'));$('version').textContent=lang==='en'?'VERSION 0.3.0':'الإصدار 0.3.0';
-  if($('deckWarning').classList.contains('show'))$('deckWarning').textContent=t('mustChoose20');$('modalEffect').textContent=t('noEffects');renderCards();if($('chosenModal').classList.contains('open'))renderChosen();
-  try{localStorage.setItem('magic-monsters-language',lang);}catch{}
-}
-$('collectionBtn').addEventListener('click',()=>{showScreen('collection');$('notice').textContent='';renderCards();});
-$('backBtn').addEventListener('click',()=>showScreen('home'));
-$('settingsBtn').addEventListener('click',()=>showScreen('settings'));
-$('settingsBackBtn').addEventListener('click',()=>showScreen('home'));
-$('arabicBtn').addEventListener('click',()=>setLanguage('ar'));
-$('englishBtn').addEventListener('click',()=>setLanguage('en'));
+function renderChosen(){const grid=$('chosenCardsGrid');grid.replaceChildren();if(!chosen.size){const empty=document.createElement('div');empty.textContent=t('empty');grid.appendChild(empty);return;}cards.filter(card=>chosen.has(card.id)).forEach(card=>{const row=document.createElement('div');row.className='chosen-card';const name=document.createElement('span');name.textContent=lang==='en'?`Card ${card.id}`:`بطاقة ${card.id}`;const remove=document.createElement('button');remove.type='button';remove.className='remove-card';remove.textContent='×';remove.setAttribute('aria-label',`${t('remove')} ${name.textContent}`);remove.addEventListener('click',()=>{chosen.delete(card.id);renderCards();renderChosen();});row.append(name,remove);grid.appendChild(row);});}
+function setLanguage(language){lang=language;document.documentElement.lang=lang;document.documentElement.dir=lang==='en'?'ltr':'rtl';document.title=t('title');const values={homeTitle:'title',matchBtn:'match',collectionBtn:'collection',settingsBtn:'settings',settingsHeading:'settings',settingsBackBtn:'back',soundHeading:'sound',soundDescription:'soundDesc',languageHeading:'language',languageDescription:'languageDesc',collectionHeading:'collectionTitle',backBtn:'back',chosenCountLabel:'count',completionLabel:'progress',collectionHint:'hint',showChosenBtn:'view',chosenModalTitle:'view',closeChosenModal:'close',closeModal:'close',effectsLabel:'effects',modalLifeLabel:'life',modalDamageLabel:'damage'};Object.entries(values).forEach(([id,key])=>{if($(id))$(id).textContent=t(key);});$('soundToggle').textContent=muted?t('soundOff'):t('soundOn');$('soundToggle').setAttribute('aria-pressed',String(muted));$('arabicBtn').classList.toggle('active',lang==='ar');$('englishBtn').classList.toggle('active',lang==='en');$('arabicBtn').setAttribute('aria-pressed',String(lang==='ar'));$('englishBtn').setAttribute('aria-pressed',String(lang==='en'));$('version').textContent=lang==='en'?'VERSION 0.3.0':'الإصدار 0.3.0';$('loadingHeading').textContent=t('loading');if($('pageLoading').classList.contains('show'))$('loadingText').textContent=t('loading');if($('deckWarning').classList.contains('show'))$('deckWarning').textContent=t('mustChoose20');$('modalEffect').textContent=t('noEffects');renderCards();if($('chosenModal').classList.contains('open'))renderChosen();try{localStorage.setItem('magic-monsters-language',lang);}catch{}}
+$('collectionBtn').addEventListener('click',()=>transitionTo(()=>{showScreen('collection');$('notice').textContent='';renderCards();},t('prepare'),500));
+$('backBtn').addEventListener('click',()=>transitionTo(()=>showScreen('home'),t('homeLoading'),300));
+$('settingsBtn').addEventListener('click',()=>transitionTo(()=>showScreen('settings'),t('settingsLoading'),350));
+$('settingsBackBtn').addEventListener('click',()=>transitionTo(()=>showScreen('home'),t('homeLoading'),300));
+$('arabicBtn').addEventListener('click',()=>setLanguage('ar'));$('englishBtn').addEventListener('click',()=>setLanguage('en'));
 $('soundToggle').addEventListener('click',()=>{muted=!muted;$('soundToggle').textContent=muted?t('soundOff'):t('soundOn');$('soundToggle').setAttribute('aria-pressed',String(muted));try{localStorage.setItem('magic-monsters-muted',String(muted));}catch{}});
-$('matchBtn').addEventListener('click',()=>{if(chosen.size!==20){const warning=$('deckWarning');warning.textContent=t('mustChoose20');warning.classList.add('show');clearTimeout(warning._timer);warning._timer=setTimeout(()=>warning.classList.remove('show'),3000);return;}window.alert(t('duel'));});
-$('showChosenBtn').addEventListener('click',()=>{renderChosen();$('chosenModal').classList.add('open');$('closeChosenModal').focus();});
-$('closeChosenModal').addEventListener('click',()=> $('chosenModal').classList.remove('open'));
-$('closeModal').addEventListener('click',()=> $('inspectModal').classList.remove('open'));
-[$('chosenModal'),$('inspectModal')].forEach(modal=>modal.addEventListener('click',event=>{if(event.target===modal)modal.classList.remove('open');}));
-document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.modal-wrap.open').forEach(modal=>modal.classList.remove('open'));});
-setLanguage(lang);
+$('matchBtn').addEventListener('click',()=>{if(chosen.size!==20){const warning=$('deckWarning');warning.textContent=t('mustChoose20');warning.classList.add('show');clearTimeout(warning._timer);warning._timer=setTimeout(()=>warning.classList.remove('show'),3000);return;}transitionTo(()=>window.alert(t('duel')),t('matchLoading'),450);});
+$('showChosenBtn').addEventListener('click',()=>{renderChosen();$('chosenModal').classList.add('open');$('closeChosenModal').focus();});$('closeChosenModal').addEventListener('click',()=> $('chosenModal').classList.remove('open'));$('closeModal').addEventListener('click',()=> $('inspectModal').classList.remove('open'));
+[$('chosenModal'),$('inspectModal')].forEach(modal=>modal.addEventListener('click',event=>{if(event.target===modal)modal.classList.remove('open');}));document.addEventListener('keydown',event=>{if(event.key==='Escape')document.querySelectorAll('.modal-wrap.open').forEach(modal=>modal.classList.remove('open'));});setLanguage(lang);
 </script>
 </body>
 </html>
